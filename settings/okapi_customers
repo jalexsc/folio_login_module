@@ -1,1 +1,12 @@
-
+{
+    "okapi" : [
+      {
+        "libraryName" : "yourlibraryName",
+        "x_okapi_url" : "https://api-bibliotecas.folio.ebsco.com",
+        "x_okapi_tenant" : "fs00000000",
+        "content_type": "application/json",
+        "userName" : "yourFOLIOUser"
+        "password" : "yourFolioUserPassword"
+      }
+ ]
+}
