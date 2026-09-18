@@ -2,7 +2,61 @@
 # -*- coding: utf-8 -*-
 """
 folio_login_module.py (production-ready)
+================================
 
+What this module does
+--------------------
+This module encapsulates authentication against FOLIO using the endpoint:
+    POST /authn/login-with-expiry
+
+In some tenants, the `x-okapi-token` is NOT returned in the headers (or no token is used),
+so effective authentication relies on session cookies.
+That’s why we use `requests.Session()` to automatically persist cookies.
+
+Objective
+--------
+To ensure your external scripts do NOT have to worry about:
+- reading `okapi_customers.json`
+- logging in
+- refreshing cookies when the session expires (401)
+- repeating base headers such as `x-okapi-tenant` and `content-type`
+- simple retries in case of 5xx errors
+
+Usage in external scripts (the bare minimum)
+-----------------------------------
+    from folio_login_module import folio_login_module
+
+    client = folio_login_module(“usb”, customers_json_path="okapi_customers.json")
+    r = client.get(“/inventory/instances?limit=1”)
+    print(r.status_code, r.text[:200])
+
+Requirements
+----------
+pip install requests
+
+Expected structure of okapi_customers.json
+-------------------------------------------
+{
+  “okapi”: [
+    {
+      “libraryName”: “usb”,
+      “x_okapi_url”: “https://api-btk.folio.ebsco.com”,
+      “x_okapi_tenant”: “fs00000000”,
+      “userName”: “usuarname”,
+      “password”: “xxxxx”,
+      “content_type”: “application/json”,
+    }
+  ]
+}
+
+Notes
+-----
+- The endpoint must always begin with “/” (e.g., “/inventory/instances”).
+- This module does NOT print or log passwords.
+- Retry/backoff: simple (2^attempt seconds) for 5xx errors.
+
+Translated with DeepL.com (free version)
+================================
 Qué hace este módulo
 --------------------
 Este módulo encapsula la autenticación contra FOLIO usando el endpoint:
