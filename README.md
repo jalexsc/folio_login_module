@@ -41,7 +41,7 @@ Never commit real credentials. Keep okapi_customers.json out of version control 
 Usage
 from folio_login_module import folio_login_module
 
-client = folio_login_module("usb", customers_json_path="okapi_customers.json")
+client = folio_login_module("yourlibraryName", customers_json_path="okapi_customers.json")
 
 r = client.get("/inventory/instances?limit=1")
 print(r.status_code, r.text[:200])
