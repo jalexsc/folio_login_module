@@ -48,7 +48,7 @@ print(r.status_code, r.text[:200])
 Constructor parameters:
 
 Parameter	Default	Description
-library_name	—	Matches libraryName in the JSON config.
+library_name	—	Matches libraryName in the JSON config. 
 customers_json_path	"okapi_customers.json"	Path to the credentials file.
 timeout	30	Per-request timeout, in seconds.
 max_retries	2	Retries on 5xx (also bounds the 401 re-login retry loop).
